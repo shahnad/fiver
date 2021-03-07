@@ -43,9 +43,9 @@ export default function NextToJump(props) {
         <div className={classes.root}>
             <Grid container spacing={3}>
                 {[1, 2, 3, 4].map(e =>
-                    <Grid item xs={12} sm={6} md={3} lg={3}>
+                    <Grid key={e} item xs={12} sm={6} md={3} lg={3}>
                         <Paper elevation={0} className={classes.item}>
-                            <Avatar alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAADNCAMAAAC8cX2UAAAAA1BMVEWDhYToKLM0AAAASElEQVR4nO3BMQEAAADCoPVPbQhfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABuA8XLAAFcyH30AAAAAElFTkSuQmCC" className={classes.small} />
+                            <Avatar variant="circular" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAADNCAMAAAC8cX2UAAAAA1BMVEWDhYToKLM0AAAASElEQVR4nO3BMQEAAADCoPVPbQhfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABuA8XLAAFcyH30AAAAAElFTkSuQmCC" className={classes.small} />
                             <Typography variant="subtitle2" className={classes.title}>
                                 R3 Townsville</Typography>
                             <Button size="small" variant="contained" className={classes.button}>

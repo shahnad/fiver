@@ -1,13 +1,14 @@
 import React from 'react'
 import MenuAppBar from '../../components/header'
 import TipsButtons from '../../components/TipsButtons'
-import { makeStyles, IconButton, useTheme } from '@material-ui/core'
+import { makeStyles, IconButton, useTheme, withWidth } from '@material-ui/core'
 import LeftSidebar from '../LeftSidebar';
 import RightSidebar from '../RightSidebar';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IndexTabs from '../../components/Tabs';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import MobileTabs from '../../components/Tabs/MobileTab';
 const useStyles = makeStyles((theme) => ({
     margin: {
         margin: theme.spacing(1),
@@ -27,30 +28,30 @@ const useStyles = makeStyles((theme) => ({
         flex: 1
     },
     toggleLeft: {
-           '& .MuiList-root': {
-                '& .MuiListItem-root': {
-                    '& .MuiListItemText-root': {
-                        display: 'none'
-                    }
+        '& .MuiList-root': {
+            '& .MuiListItem-root': {
+                '& .MuiListItemText-root': {
+                    display: 'none'
                 }
             }
+        }
     },
     toggleRight: {
         '& .MuiPaper-root': {
-            
-        display:'none'
+
+            display: 'none'
         }
 
     }
 
 }));
 
-export default function Dashboard(props) {
+function Dashboard(props) {
     const classes = useStyles();
-    const theme = useTheme();
+    const { width } = props;
     const [isLeftSidebarOPen, setLeftSidebarOpen] = React.useState(true);
     const [isRightSidebarOPen, setRightSidebarOpen] = React.useState(true);
-    
+
     const toggleLeftSidebar = () => {
         setLeftSidebarOpen((prev) => !prev);
     };
@@ -61,29 +62,36 @@ export default function Dashboard(props) {
     return (
         <div>
             <MenuAppBar />
-            <div style={{overflow:'auto'}}>
-            <div className={classes.margin}>
-                <TipsButtons />
-            </div>
-            <div className={classes.container}>
-                   {<div className={isLeftSidebarOPen ? classes.box1 : classes.toggleLeft}>
-                    <IconButton onClick={toggleLeftSidebar}>
-                        <ArrowBackIcon />
-                    </IconButton>   
-                    <LeftSidebar />
-                    </div>}
-                <div className={classes.box2}>
-                 <IndexTabs />
+            <div style={{ overflow: 'auto' }}>
+                <div className={classes.margin}>
+                    <TipsButtons />
                 </div>
-              <div className={isRightSidebarOPen?classes.box3:classes.toggleRight}>
-                       <IconButton onClick={toggleRightSidebar}>
-                        <ArrowForwardIcon />
-                    </IconButton> 
-                    <RightSidebar />
+            {width !== 'xs' && width !== 'sm' &&<div className={classes.container}>
+                  
+                        <div className={isLeftSidebarOPen ? classes.box1 : classes.toggleLeft}>
+                            <IconButton onClick={toggleLeftSidebar}>
+                                <ArrowBackIcon />
+                            </IconButton>
+                            <LeftSidebar />
+                        </div>
+                    <div className={classes.box2}>
+                        <IndexTabs />
+                    </div>
+                   <div className={isRightSidebarOPen ? classes.box3 : classes.toggleRight}>
+                        <IconButton onClick={toggleRightSidebar}>
+                            <ArrowForwardIcon />
+                        </IconButton>
+                        <RightSidebar />
+                    </div>
                 </div>
-
+                }
+                <div className={classes.margin}>
+            
+                {width == 'xs' && <MobileTabs />}
+                {width == 'sm' && <MobileTabs />}
+                </div>
             </div>
-            </div>
-            </div>
+        </div>
     )
 }
+export default withWidth()(Dashboard);
